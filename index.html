@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sürpriz 💖 - Mobil</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      color: white; font-family: Arial, sans-serif;
+      text-align: center; height: 100vh; margin: 0;
+      overflow: hidden; display: flex;
+      flex-direction: column; justify-content: center; align-items: center;
+      position: relative;
+    }
+    h1 {
+      font-size: 2em; margin: 20px;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+      animation: glow 2s ease-in-out infinite alternate;
+      max-width: 90%; transition: all 0.5s ease;
+      z-index: 5;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #fff, 0 0 10px #ffb3c1, 0 0 20px #ff758c; }
+      to { text-shadow: 0 0 20px #fff, 0 0 30px #ff4d6d, 0 0 40px #ff1e56; }
+    }
+    .buttons {
+      margin-top: 20px; z-index: 2; position: absolute; bottom: 40px;
+      display: flex; justify-content: center; width: 100%;
+    }
+    button {
+      padding: 12px 24px; font-size: 1em; border: none; border-radius: 12px;
+      margin: 8px; cursor: pointer; transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 3;
+    }
+    #yesBtn { background-color: #e63946; color: white; }
+    #noBtn { background-color: #555; color: white; }
+    .heart { position: absolute; color: rgba(255,255,255,0.7); font-size: 16px; animation: floatUp linear infinite; }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1 id="question">Benimle barışır mısın? 💖</h1>
+  <div class="buttons">
+    <button id="yesBtn">Evet</button>
+    <button id="noBtn">Hayır</button>
+  </div>
+  <script>
+    const questions = [
+      "Ama sensiz çok üzgünüm 😢 Barışmaz mısın?",
+      "Sen benim her şeyimsin 🌹 Hala hayır mı?",
+      "Kalbim seninle güzel 💕 Peki şimdi evet mi?",
+      "Beni affet lütfen 🙏 Sensiz yapamam 💖",
+      "Dünyam sensin ✨ Bir şans daha vermez misin?",
+      "Sen gülünce hayat güzelleşiyor 🌸 Hala hayır mı?",
+      "Sensizlik bana ağır geliyor 😞 Barışalım mı?",
+      "Benim tek dileğim sensin 💫 Peki şimdi evet mi?",
+      "Sonsuza kadar yanımda olmanı istiyorum 💍 Kabul eder misin?"
+    ];
+    let questionIndex = 0;
+    let yesBtn = document.getElementById("yesBtn");
+    let noBtn = document.getElementById("noBtn");
+    let questionEl = document.getElementById("question");
+    let yesSize = 1;
+
+    noBtn.addEventListener("click", () => {
+      questionIndex++;
+      if (questionIndex < questions.length) {
+        questionEl.textContent = questions[questionIndex];
+        yesSize += 0.3;
+        yesBtn.style.transform = `scale(${yesSize})`;
+      } else {
+        yesBtn.style.position = "fixed";
+        yesBtn.style.top = "50%";
+        yesBtn.style.left = "50%";
+        yesBtn.style.width = "100vw";
+        yesBtn.style.height = "100vh";
+        yesBtn.style.fontSize = "3em";
+        yesBtn.style.borderRadius = "0";
+        yesBtn.style.transform = "translate(-50%, -50%) scale(1)";
+        yesBtn.style.zIndex = "999";
+        noBtn.style.display = "none";
+        questionEl.style.display = "none";
+      }
+    });
+
+    yesBtn.addEventListener("click", () => {
+      questionEl.style.display = "block";
+      questionEl.textContent = "Beni affettiğin için çok mutluyum! 💖";
+      document.querySelector(".buttons").style.display = "none";
+    });
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "❤";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 15 + "px";
+      heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => { heart.remove(); }, 6000);
+    }
+    setInterval(createHeart, 500);
+  </script>
+</body>
+</html>
